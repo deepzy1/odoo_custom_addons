@@ -1,0 +1,50 @@
+<odoo>
+    <!-- Root Menu -->
+    <menuitem id="menu_visitor_management" name="Visitor Management"
+              web_icon="visitor_management/static/description/icon.png" sequence="1"/>
+
+    <!-- Submenus -->
+    <menuitem id="menu_station" name="Stations" parent="menu_visitor_management"
+              action="action_visitor_station" sequence="1"/>
+
+    <menuitem id="menu_visitor" name="Visitors" parent="menu_visitor_management"
+              action="action_visitor_today_record" sequence="2"/>
+
+    <!-- Actions -->
+    <record id="action_visitor_today_record" model="ir.actions.act_window">
+        <field name="name">Today's Visitors</field>
+        <field name="res_model">visitor.today.record</field>
+        <field name="view_mode">tree,form</field>
+        <field name="context">{}</field>
+        <field name="domain">[('visit_date', '>=', 'datetime.today().date()')]</field>
+    </record>
+
+    <!-- Views -->
+    <record id="view_visitor_today_record_tree" model="ir.ui.view">
+        <field name="name">visitor.today.record.tree</field>
+        <field name="model">visitor.today.record</field>
+        <field name="arch" type="xml">
+            <tree>
+                <field name="visitor_name"/>
+                <field name="visit_date"/>
+                <field name="visit_purpose"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_visitor_today_record_form" model="ir.ui.view">
+        <field name="name">visitor.today.record.form</field>
+        <field name="model">visitor.today.record</field>
+        <field name="arch" type="xml">
+            <form>
+                <sheet>
+                    <group>
+                        <field name="visitor_name"/>
+                        <field name="visit_date"/>
+                        <field name="visit_purpose"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+</odoo>
