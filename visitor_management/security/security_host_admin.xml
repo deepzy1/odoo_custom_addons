@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- Module Category -->
+        <record id="module_category_visitor_management" model="ir.module.category">
+            <field name="name">Visitor Management</field>
+            <field name="sequence">10</field>
+        </record>
+
+        <!-- Security Groups -->
+        <record id="group_admin" model="res.groups">
+            <field name="name">Administrator</field>
+            <field name="category_id" ref="module_category_visitor_management"/>
+        </record>
+
+        <record id="group_security_guard" model="res.groups">
+            <field name="name">Security Guard</field>
+            <field name="category_id" ref="module_category_visitor_management"/>
+        </record>
+
+        <record id="group_host" model="res.groups">
+            <field name="name">Host</field>
+            <field name="category_id" ref="module_category_visitor_management"/>
+        </record>
+
+        <!-- Record Rules -->
+
+        <!-- Admin: Full Access -->
+        <record id="rule_admin_visitor_station" model="ir.rule">
+            <field name="name">Admin Full Access to Visitor Stations</field>
+            <field name="model_id" ref="model_visitor_station"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_admin'))]"/>
+        </record>
+        <record id="rule_admin_visitor_record" model="ir.rule">
+            <field name="name">Admin Full Access to Visitor Records</field>
+            <field name="model_id" ref="model_visitor_record"/>
+            <field name="domain_force">[(1, '=', 1)]</field>
+            <field name="groups" eval="[(4, ref('group_admin'))]"/>
+        </record>
+
+        <!-- Hosts: Access to their visitors -->
+        <record id="rule_host_visitor_record" model="ir.rule">
+            <field name="name">Host Access to Own Visitors</field>
+            <field name="model_id" ref="model_visitor_record"/>
+            <field name="domain_force">[('host.user_id', '=', user.id)]</field>
+            <field name="groups" eval="[(4, ref('group_host'))]"/>
+        </record>
+
+        <!-- Security Guard: Access to assigned stations and linked visitors -->
+        <record id="rule_security_guard_station" model="ir.rule">
+            <field name="name">Security Guard Access to Assigned Stations</field>
+            <field name="model_id" ref="model_visitor_station"/>
+            <field name="domain_force">[('security_name', '=', user.name)]</field>
+            <field name="groups" eval="[(4, ref('group_security_guard'))]"/>
+        </record>
+        <record id="rule_security_guard_visitor_record" model="ir.rule">
+            <field name="name">Security Guard Access to Visitors of Assigned Stations</field>
+            <field name="model_id" ref="model_visitor_record"/>
+            <field name="domain_force">[('station_id.security_name', '=', user.name)]</field>
+            <field name="groups" eval="[(4, ref('group_security_guard'))]"/>
+        </record>
+    </data>
+</odoo>

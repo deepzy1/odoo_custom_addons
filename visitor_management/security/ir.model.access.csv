@@ -1,0 +1,7 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_admin_visitor_station,Admin Visitor Station,model_visitor_station,visitor_management.group_admin,1,1,1,1
+access_security_guard_station,Security Guard Station,model_visitor_station,visitor_management.group_security_guard,1,1,0,0
+access_host_visitor_record,Host Visitor Record,model_visitor_record,visitor_management.group_host,1,1,0,0
+access_admin_visitor_record,Admin Visitor Record,model_visitor_record,visitor_management.group_admin,1,1,1,1
+access_security_guard_visitor_record,Security Guard Visitor Record,model_visitor_record,visitor_management.group_security_guard,1,1,1,0
+
