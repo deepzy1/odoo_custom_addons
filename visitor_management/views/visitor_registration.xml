@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="visitor_register_template" name="Visitor Registration">
+        <t t-call="website.layout">
+            <div class="container mt-4">
+                <h1>Visitor Registration for <t t-esc="station.name"/></h1>
+                <form action="/visitor/submit" method="post" class="mt-4">
+                    <input type="hidden" name="csrf_token" t-att-value="request.csrf_token()"/>
+                    <input type="hidden" name="station_id" t-att-value="station.id"/>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" class="form-control" id="name" name="name" required="required"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" class="form-control" id="email" name="email"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="phone">Phone</label>
+                        <input type="tel" class="form-control" id="phone" name="phone" required="required"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="purpose">Purpose</label>
+                        <input type="text" class="form-control" id="purpose" name="purpose" required="required"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="host">To Meet</label>
+                        <select class="form-control" id="host" name="host" required="required">
+                            <option value="">Select an employee</option>
+                            <t t-foreach="employees" t-as="employee">
+                                <option t-att-value="employee.id"><t t-esc="employee.name"/></option>
+                            </t>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="aadhar_id">Aadhar ID</label>
+                        <input type="number" class="form-control" id="aadhar_id" name="aadhar_id"/>
+                    </div>
+                    <div class="form-group">
+                        <label for="place">Place</label>
+                        <input type="text" class="form-control" id="place" name="place"/>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </t>
+    </template>
+
+    <template id="error_page" name="Error Page">
+        <t t-call="website.layout">
+            <div class="container mt-4">
+                <h1>Error</h1>
+                <p><t t-esc="error_message"/></p>
+            </div>
+        </t>
+    </template>
+
+    <template id="thank_you_page" name="Thank You Page">
+        <t t-call="website.layout">
+            <div class="container mt-4">
+                <h1>Thank You</h1>
+                <p>Your registration has been submitted successfully.</p>
+                <p>Visitor Name: <t t-esc="visitor.name"/></p>
+                <p>Visit Date: <t t-esc="visitor.visit_date"/></p>
+                <p>Host: <t t-esc="visitor.host.name"/></p>
+            </div>
+        </t>
+    </template>
+</odoo>

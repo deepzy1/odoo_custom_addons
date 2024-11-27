@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_visitor_record_form" model="ir.ui.view">
+        <field name="name">visitor.record.form</field>
+        <field name="model">visitor.record</field>
+        <field name="arch" type="xml">
+            <form string="Visitor Record">
+                <header>
+                    <!-- Status Bar -->
+                    <field name="state" widget="statusbar"
+                           statusbar_visible="notified,draft,approved,refused,checked_in,checked_out"/>
+
+
+
+                    <button name="action_notify_host" type="object" string="Send Notification" class="btn-primary"
+                            groups="visitor_management.group_security_guard,visitor_management.group_admin"
+                            />
+
+                    <button name="send_visitor_notification" type="object" string="Notify By Mail" class="btn-primary"
+                            groups="visitor_management.group_security_guard,visitor_management.group_admin"
+                            invisible="state!= 'draft'"/>
+                    <button name="action_approve" type="object" string="Approve" class="btn-primary"
+                            groups="visitor_management.group_admin,visitor_management.group_host,visitor_management.group_security_guard"
+                            invisible="state!= 'notified'"/>
+
+                    <!-- Refuse Button -->
+                    <button name="action_refuse" type="object" string="Refuse" class="btn-danger"
+                            groups="visitor_management.group_admin,visitor_management.group_host,visitor_management.group_security_guard"
+                            invisible="state!= 'notified'"/>
+
+                    <!-- Check-In Button -->
+                    <button name="action_check_in" type="object" string="Check-In" class="btn-primary"
+                            groups="visitor_management.group_admin,visitor_management.group_security_guard"
+                            invisible="state!= 'approved'"/>
+
+                    <!-- Check-Out Button -->
+                    <button name="action_check_out" type="object" string="Check-Out" class="btn-secondary"
+                            groups="visitor_management.group_admin,visitor_management.group_security_guard"
+                            invisible=" state!= 'checked_in'  "/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Visitor name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="email" placeholder="Email"/>
+                            <field name="phone" placeholder="Phone"/>
+                            <field name="host"/>
+
+                        </group>
+                        <group>
+                            <field name="station_id"/>
+                            <field name="visit_date" readonly="1"/>
+                            <field name="place" groups="visitor_management.group_security_guard" />
+                        </group>
+                    </group>
+                    <group>
+                        <field name="purpose" placeholder="Purpose"/>
+
+                        <field name="aadhar_id" placeholder="Aadhar ID"/>
+                    </group>
+                    <group>
+                        <field name="check_in_time" readonly="1"/>
+                        <field name="check_out_time" readonly="1"/>
+                    </group>
+
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+
+    <record id="view_visitor_record_list" model="ir.ui.view">
+        <field name="name">visitor.record.list</field>
+        <field name="model">visitor.record</field>
+        <field name="arch" type="xml">
+            <list string="Visitor Records">
+                <field name="name"/>
+                <field name="email"/>
+                <field name="phone"/>
+                <field name="station_id"/>
+                <field name="visit_date"/>
+                <field name="check_in_time" optional="hide"/>
+                <field name="check_out_time" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_visitor_record_kanban" model="ir.ui.view">
+        <field name="name">visitor.record.kanban</field>
+        <field name="model">visitor.record</field>
+        <field name="arch" type="xml">
+            <kanban>
+                <field name="name"/>
+                <field name="state"/>
+                <templates>
+                    <t t-name="kanban-box">
+                        <div class="o_kanban_card">
+                            <strong>
+                                <field name="name"/>
+                            </strong>
+                            <div>Status:
+                                <field name="state"/>
+                            </div>
+                            <div>Station:
+                                <field name="station_id"/>
+                            </div>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="action_visitor_record" model="ir.actions.act_window">
+        <field name="name">Visitor Records</field>
+        <field name="res_model">visitor.record</field>
+        <field name="view_mode">kanban,list,form</field>
+    </record>
+</odoo>
+
+
+
+

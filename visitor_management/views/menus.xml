@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Actions -->
+    <record id="action_visitor_station" model="ir.actions.act_window">
+        <field name="name">Stations</field>
+        <field name="res_model">visitor.station</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <record id="action_visitor_record" model="ir.actions.act_window">
+        <field name="name">Visitors</field>
+        <field name="res_model">visitor.record</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+
+
+
+
+
+    <!-- Root Menu -->
+    <menuitem id="menu_visitor_management" name="Visitor Management"
+              web_icon="visitor_management/static/description/icon.png" sequence="1"/>
+
+    <!-- Submenus -->
+    <menuitem id="menu_station" name="Stations" parent="menu_visitor_management"
+              action="action_visitor_station" sequence="1"/>
+
+    <menuitem id="menu_visitor" name="Visitors" parent="menu_visitor_management"
+              action="action_visitor_record" sequence="2"/>
+
+
+
+
+</odoo>
