@@ -20,7 +20,7 @@
         <field name="name">visitor.station.form</field>
         <field name="model">visitor.station</field>
         <field name="arch" type="xml">
-            <form>
+            <form >
                 <sheet>
                     <group>
                         <field name="security_name"/>
@@ -35,8 +35,9 @@
                     <group>
                         <field name="visitor_count" readonly="1" string="Total Visitors" groups="visitor_management.group_admin"/>
                         <field name="visitor_count_today" readonly="1" string="Today's Visitors" groups="visitor_management.group_admin,visitor_management.group_security_guard"/>
-                        <field name="visitor_ids" readonly="1" string="Visitor record" groups="visitor_management.group_admin"/>
-                        <field name="visitor_ids_today" readonly="1" string="Today's Visitor Records" groups="visitor_management.group_admin,visitor_management.group_security_guard"/>
+                        <field name="visitor_ids" readonly="0" string="Visitor record" groups="visitor_management.group_admin"/>
+                        <field name="visitor_ids_today" readonly="0" string="Today's Visitor Records" groups="visitor_management.group_admin,visitor_management.group_security_guard"
+                                   />
                     </group>
                 </sheet>
                 <sheet>
