@@ -1,11 +1,12 @@
 <odoo>
 
     <!-- Add the view for today's visitors -->
-    <record id="view_today_visitor_record_list" model="ir.ui.view">
+    <record id="action_today_visitor_record_list" model="ir.ui.view">
         <field name="name">visitor.record.list.today</field>
         <field name="model">visitor.record</field>
+<!--        <field name="priority" >1</field>-->
         <field name="arch" type="xml">
-            <list string="Today's Visitors">
+            <list string="Today's Visitors" create="0" >
                 <field name="name"/>
                 <field name="host"/>
                 <field name="visit_date"/>
@@ -15,12 +16,12 @@
         </field>
     </record>
 
-    <record id="view_today_visitor_record_form" model="ir.ui.view">
+    <record id="action_today_visitor_record_form" model="ir.ui.view">
         <field name="name">visitor.record.form.today</field>
         <field name="model">visitor.record</field>
         <field name="arch" type="xml">
-            <form string="Visitor Form">
-                <group>
+            <form string="Visitor Form" >
+                <group >
                     <field name="name"/>
                     <field name="email"/>
                     <field name="phone"/>
@@ -40,7 +41,12 @@
     <record id="action_today_visitor_record" model="ir.actions.act_window">
         <field name="name">Today's Visitors</field>
         <field name="res_model">visitor.record</field>
+
+
         <field name="view_mode">list,form</field>
+        <field name="view_ids" eval="[(5, 0, 0),
+                              (0, 0, {'view_mode': 'list', 'view_id': ref('action_today_visitor_record_list')}),
+                              (0, 0, {'view_mode': 'form', 'view_id': ref('action_today_visitor_record_form')})]"/>
         <field name="domain">[('visit_date', '>=', context_today())]</field>
     </record>
 
