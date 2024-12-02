@@ -5,6 +5,10 @@ import os
 from datetime import datetime, timedelta
 from datetime import date
 from pytz import timezone
+from io import BytesIO
+from PIL import Image, ImageDraw, ImageFont
+from odoo.exceptions import UserError
+import base64
 
 
 class HREmployee(models.Model):
@@ -46,6 +50,8 @@ class VisitorRecord(models.Model):
 
     check_in_time = fields.Datetime(string="Check-In Time", readonly=True)
     check_out_time = fields.Datetime(string="Check-Out Time", readonly=True)
+
+
 
     # @api.model
     # def get_todays_visitors(self):
@@ -289,3 +295,18 @@ class VisitorRecord(models.Model):
 
                 # Update state to 'notified' after sending the email and scheduling the activity
                 record.state = 'notified'
+
+    def emaill(self):
+        for record in self:
+            template = self.env.ref('visitor_management.mail_template_visitor_notification2')
+            if template:
+                print("sucess")
+                template.sudo().send_mail(record.id, force_send=True)
+                print("sucess")
+
+
+
+
+
+
+
