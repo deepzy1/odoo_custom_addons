@@ -16,7 +16,6 @@
     'category': 'Operations',
     'depends': ['base', 'web', 'mail', 'website','hr'],
     'data': [
-        'data/email_template.xml',
         'data/email_template2.xml',
         'security/security_host_admin.xml',
         'security/ir.model.access.csv',
@@ -25,7 +24,7 @@
         'views/visitor.xml',
         'views/today.xml',
         'views/menus.xml',
-        # 'views/website_templates.xml',
+
 
     ],
 
