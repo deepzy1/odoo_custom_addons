@@ -17,25 +17,31 @@
     'depends': ['base', 'web', 'mail', 'website','hr'],
     'data': [
         'security/security_host_admin.xml',
+        'views/minimal_layout.xml',
         'security/ir.model.access.csv',
         'views/visitor_registration.xml',
         'views/station2.xml',
         'views/visitor.xml',
         'views/today.xml',
         'views/menus.xml',
+        'views/asset.xml',
+
+        'views/visitor_templates.xml',
+       # Include visitor templates
         # 'views/website_templates.xml',
 
     ],
 
-    # 'assets': {
-    #     'web.assets_backend': [
-    #         'visitor_management/static/src/scss/styles.scss',
-    #         'visitor_management/static/src/js/custom_backend.js',
-    #     ],
-        # 'web.assets_frontend': [
-        #     'visitor_management/static/src/js/custom_frontend.js',
+    'assets': {
+        # 'web.assets_backend': [
+        #     'visitor_management/static/src/scss/styles.scss',
+        #     'visitor_management/static/src/js/custom_backend.js',
         # ],
-    # },
+        'web.assets_frontend': [
+            # 'visitor_management/static/src/js/custom_frontend.js',
+            'visitor_management/static/src/css/style.css',
+        ],
+    },
     'installable': True,
     'application': True,
     'auto_install': False,

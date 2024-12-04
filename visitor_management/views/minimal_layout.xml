@@ -1,0 +1,10 @@
+<odoo>
+    <template id="minimal_layout" name="Minimal Layout">
+        <div class="o_web_page">
+            <!-- Main Content -->
+            <t t-call-options="{'lang': 'en_US'}">
+                <t t-raw="0"/>
+            </t>
+        </div>
+    </template>
+</odoo>

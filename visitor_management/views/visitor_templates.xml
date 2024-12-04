@@ -1,0 +1,27 @@
+<odoo>
+    <template id="visitor_list_template" name="Visitor List Page">
+        <t t-call="visitor_management.minimal_layout">
+            <div class="container mt-5">
+                <h2 class="text-center">Visitor Records</h2>
+                <table class="table table-bordered table-striped mt-4">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th>Name</th>
+                            <th>Visit Date</th>
+                            <th>Host</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="visitors" t-as="visitor">
+                            <tr>
+                                <td><t t-esc="visitor.name"/></td>
+                                <td><t t-esc="visitor.visit_date.strftime('%Y-%m-%d %H:%M:%S')"/></td>
+                                <td><t t-esc="visitor.host.name"/></td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+</odoo>
