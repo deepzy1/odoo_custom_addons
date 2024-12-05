@@ -14,10 +14,6 @@
     </record>
 
 
-
-
-
-
     <!-- Root Menu -->
     <menuitem id="menu_visitor_management" name="Visitor Management"
               web_icon="visitor_management/static/description/icon.png" sequence="1"/>
@@ -28,8 +24,6 @@
 
     <menuitem id="menu_visitor" name="Visitors" parent="menu_visitor_management"
               action="action_visitor_record" sequence="2"/>
-
-
 
 
 </odoo>

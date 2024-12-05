@@ -40,6 +40,7 @@
         'web.assets_frontend': [
             # 'visitor_management/static/src/js/custom_frontend.js',
             'visitor_management/static/src/css/style.css',
+            'visitor_management/static/src/js/theme_toggle.js',
         ],
     },
     'installable': True,
