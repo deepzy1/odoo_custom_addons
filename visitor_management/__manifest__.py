@@ -26,7 +26,7 @@
         'views/menus.xml',
         'views/asset.xml',
 
-        'views/visitor_templates.xml',
+        'views/visitor_templates2.xml',
        # Include visitor templates
         # 'views/website_templates.xml',
 
