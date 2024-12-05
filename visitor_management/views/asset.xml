@@ -3,6 +3,11 @@
         <xpath expr="." position="inside">
             <script type="text/javascript" src="/visitor_management/static/src/js/theme_toggle.js"></script>
             <link rel="stylesheet" type="text/css" href="/visitor_management/static/src/css/style.css"/>
+
+            <link rel="stylesheet" type="text/css" href="/visitor_management/static/src/css/slideshow.css"/>
+            <script type="text/javascript" src="/visitor_management/static/src/js/slideshow.js"></script>
+
+
         </xpath>
     </template>
 </odoo>

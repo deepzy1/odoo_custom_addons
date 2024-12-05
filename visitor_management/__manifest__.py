@@ -25,6 +25,7 @@
         'views/today.xml',
         'views/menus.xml',
         'views/asset.xml',
+        'views/image_slideshow.xml',
 
         'views/visitor_templates2.xml',
        # Include visitor templates
@@ -41,6 +42,8 @@
             # 'visitor_management/static/src/js/custom_frontend.js',
             'visitor_management/static/src/css/style.css',
             'visitor_management/static/src/js/theme_toggle.js',
+            '/visitor_management/static/src/css/slideshow.css',
+            '/visitor_management/static/src/js/slideshow.js',
         ],
     },
     'installable': True,

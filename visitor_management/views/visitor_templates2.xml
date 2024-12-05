@@ -5,7 +5,7 @@
         <script type="text/javascript" src="/visitor_management/static/src/js/theme_toggle.js"></script>
         <div class="container mt-5">
             <h2 class="text-center">Visitor Records</h2>
-            <button id="themeToggleButton">Toggle Light/Dark Theme</button>
+            <button id="themeToggleButton">Toggle Theme</button>
 
 
             <table class="table table-bordered table-striped mt-4">
