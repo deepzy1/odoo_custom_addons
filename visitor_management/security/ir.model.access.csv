@@ -5,3 +5,5 @@ access_host_visitor_record,Host Visitor Record,model_visitor_record,visitor_mana
 access_admin_visitor_record,Admin Visitor Record,model_visitor_record,visitor_management.group_admin,1,1,1,1
 access_security_guard_visitor_record,Security Guard Visitor Record,model_visitor_record,visitor_management.group_security_guard,1,1,1,0
 
+
+

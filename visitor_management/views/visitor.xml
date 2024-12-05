@@ -11,10 +11,9 @@
                            statusbar_visible="notified,draft,approved,refused,checked_in,checked_out"/>
 
 
-
-<!--                    <button name="action_notify_host" type="object" string="Send Notification" class="btn-primary"-->
-<!--                            groups="visitor_management.group_security_guard,visitor_management.group_admin"-->
-<!--                             invisible="state!= 'draft'"/>-->
+                    <!--                    <button name="action_notify_host" type="object" string="Send Notification" class="btn-primary"-->
+                    <!--                            groups="visitor_management.group_security_guard,visitor_management.group_admin"-->
+                    <!--                             invisible="state!= 'draft'"/>-->
 
                     <button name="send_visitor_notification" type="object" string="Notify By Mail" class="btn-primary"
                             groups="visitor_management.group_security_guard,visitor_management.group_admin"
@@ -37,6 +36,10 @@
                     <button name="action_check_out" type="object" string="Check-Out" class="btn-secondary"
                             groups="visitor_management.group_admin,visitor_management.group_security_guard"
                             invisible=" state!= 'checked_in'  "/>
+
+                    <button name="action_generate_visitor_badge" type="object" string="Badge" class="btn-primary"
+                            groups="visitor_management.group_security_guard,visitor_management.group_admin"
+                            invisible="state!= 'approved'"/>
                 </header>
                 <sheet>
                     <div class="oe_title">
@@ -54,7 +57,7 @@
                         <group>
                             <field name="station_id"/>
                             <field name="visit_date" readonly="1"/>
-                            <field name="place" groups="visitor_management.group_security_guard" />
+                            <field name="place" groups="visitor_management.group_security_guard"/>
                         </group>
                     </group>
                     <group>
@@ -78,7 +81,7 @@
         <field name="name">visitor.record.list</field>
         <field name="model">visitor.record</field>
         <field name="arch" type="xml">
-            <list string="Visitor Records" >
+            <list string="Visitor Records">
                 <field name="name"/>
                 <field name="host"/>
                 <field name="email"/>

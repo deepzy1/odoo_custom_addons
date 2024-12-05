@@ -5,6 +5,16 @@ import os
 from datetime import datetime, timedelta
 from datetime import date
 from pytz import timezone
+from reportlab.lib.pagesizes import letter
+from reportlab.lib import colors
+from reportlab.pdfgen import canvas
+from io import BytesIO
+import base64
+import random
+
+
+
+
 
 
 class HREmployee(models.Model):
@@ -18,6 +28,7 @@ class VisitorRecord(models.Model):
     _description = 'Visitor Record'
     _inherit = ['mail.thread', 'mail.activity.mixin']
     _rec_name = 'host'
+
 
     name = fields.Char(string="Visitor Name", required=True)
     email = fields.Char(string="Email",required=True)
@@ -86,6 +97,118 @@ class VisitorRecord(models.Model):
     #     for record in self:
     #         if record.state == 'notified':
     #             record.state = 'approved'
+
+    # def action_generate_visitor_badge(self):
+    #     """Generate and download a visitor badge."""
+    #     for record in self:
+    #         # Create a PDF in memory
+    #         buffer = BytesIO()
+    #         c = canvas.Canvas(buffer, pagesize=letter)
+    #         c.drawString(100, 750, f"Visitor Badge")
+    #         c.drawString(100, 730, f"Name: {record.name}")
+    #         c.drawString(100, 710, f"Date: {record.visit_date.strftime('%Y-%m-%d')}")
+    #         c.drawString(100, 690, f"Host: {record.host.name}")
+    #         c.drawString(100, 670, f"Station: {record.station_id.name}")
+    #         c.save()
+    #
+    #         # Encode the PDF for download
+    #         buffer.seek(0)
+    #         pdf_data = buffer.read()
+    #         buffer.close()
+    #
+    #         # Create an attachment
+    #         attachment = self.env['ir.attachment'].create({
+    #             'name': f'Visitor_Badge_{record.name}.pdf',
+    #             'type': 'binary',
+    #             'datas': base64.b64encode(pdf_data),
+    #             'res_model': self._name,
+    #             'res_id': record.id,
+    #             'mimetype': 'application/pdf',
+    #         })
+    #
+    #         # Trigger a download for the badge
+    #         return {
+    #             'type': 'ir.actions.act_url',
+    #             'url': f'/web/content/{attachment.id}?download=true',
+    #             'target': 'new',
+    #         }
+
+    def action_generate_visitor_badge(self):
+        """Generate and download a visitor badge with ID card size."""
+        for record in self:
+            # Define ID card size in points (3.5 x 2 inches)
+            width = 252
+            height = 144
+
+            # Create a PDF in memory with ID card size
+            buffer = BytesIO()
+            c = canvas.Canvas(buffer, pagesize=(width, height))
+
+            # Add Border
+            c.setStrokeColor(colors.black)
+            c.setLineWidth(2)
+            c.rect(5, 5, width - 10, height - 10)  # x, y, width, height with margin
+
+            # Title with bold text
+            c.setFont("Helvetica-Bold", 14)
+            c.drawString(90, 120, "Visitor Badge")
+
+            # Add Visitor Details with Bold Text for Labels
+            c.setFont("Helvetica-Bold", 10)
+            c.drawString(10, 100, "Name: ")
+            c.setFont("Helvetica", 10)
+            c.drawString(60, 100, f"{record.name}")
+
+            c.setFont("Helvetica-Bold", 10)
+            c.drawString(10, 85, "Date: ")
+            c.setFont("Helvetica", 10)
+            c.drawString(60, 85, f"{record.visit_date.strftime('%Y-%m-%d')}")
+
+            c.setFont("Helvetica-Bold", 10)
+            c.drawString(10, 70, "Host: ")
+            c.setFont("Helvetica", 10)
+            c.drawString(60, 70, f"{record.host.name}")
+
+            c.setFont("Helvetica-Bold", 10)
+            c.drawString(10, 55, "Station: ")
+            c.setFont("Helvetica", 10)
+            c.drawString(60, 55, f"{record.station_id.name}")
+
+            # Draw a simple "icon" (circle)
+            c.setFillColor(colors.blue)
+            c.circle(230, 120, 6, fill=1)  # Circle with center at (230, 120) and radius 6
+
+            # Draw a random "barcode" (random vertical lines) at the bottom
+            c.setStrokeColor(colors.black)
+            barcode_y = 10
+            for _ in range(20):
+                barcode_x = random.randint(10, 240)
+                c.setLineWidth(random.randint(1, 3))
+                c.line(barcode_x, barcode_y, barcode_x, barcode_y + 20)
+
+            c.save()
+
+            # Encode the PDF for download
+            buffer.seek(0)
+            pdf_data = buffer.read()
+            buffer.close()
+
+            # Create an attachment
+            attachment = self.env['ir.attachment'].create({
+                'name': f'Visitor_Badge_{record.name}.pdf',
+                'type': 'binary',
+                'datas': base64.b64encode(pdf_data),
+                'res_model': self._name,
+                'res_id': record.id,
+                'mimetype': 'application/pdf',
+            })
+
+            # Trigger a download for the badge
+            return {
+                'type': 'ir.actions.act_url',
+                'url': f'/web/content/{attachment.id}?download=true',
+                'target': 'new',
+            }
 
     def action_approve(self):
         """Approve the visitor record and notify the security guard."""
@@ -289,3 +412,5 @@ class VisitorRecord(models.Model):
 
                 # Update state to 'notified' after sending the email and scheduling the activity
                 record.state = 'notified'
+
+
